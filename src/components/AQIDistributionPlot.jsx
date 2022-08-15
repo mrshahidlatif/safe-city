@@ -6,7 +6,7 @@ export default function AQIDistributionPlot(props){
 
     const margin = {top: 50, right: 20, left: 50, bottom:30};
 
-    const height = 500 - margin.top - margin.bottom;
+    const height = 350 - margin.top - margin.bottom;
     const width = 400 - margin.left - margin.right;
 
     let svgContainer = d3.select(svgRef.current);
@@ -14,7 +14,6 @@ export default function AQIDistributionPlot(props){
     useEffect (() => {
         if(!props.data) return
         const data = Object.values(props.data);
-        console.log('data', props);
 
         let xscale = d3.scaleLinear()
             .domain([0, d3.max(data.map(d=>d.max_aqi))])
@@ -86,7 +85,7 @@ export default function AQIDistributionPlot(props){
         <svg
             ref = {svgRef}
             style={{
-                height: 500,
+                height: 350,
                 width: 400,
                 marginRight: "0px",
                 marginLeft: "0px",
