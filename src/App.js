@@ -1,25 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import TopBar from "./components/TopBar"
+import AQIDistributionPlot from "./components/AQIDistributionPlot"
+import SearchBox from './components/SearchBox';
+
+import data from './annual_data.json';
+import { useEffect, useState } from 'react';
+import { select } from 'd3';
+
+export default function App() {
+  const [selectedItem, setSelectedItem] = useState("Baldwin");
+  const [selectedData, setSelectedData] = useState(null)
+
+  const handleSearchItem = (item) => {
+    setSelectedItem(item);
+  }
+
+  useEffect(() => {
+    if(selectedItem){
+      setSelectedData(data[selectedItem]);
+    }
+  }, [selectedItem])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TopBar />
+      <Container > 
+        <Row>
+          <SearchBox handleSearchItem={handleSearchItem}/>
+        </Row>
+        <Row>
+          <Col><AQIDistributionPlot data={selectedData} county={selectedItem}/></Col>
+        </Row>
+      </Container>
+    </>
   );
 }
-
-export default App;
