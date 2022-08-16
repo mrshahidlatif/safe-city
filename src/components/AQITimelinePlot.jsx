@@ -18,23 +18,20 @@ export default function AQITimelinePlot(props){
         console.log('Data - AQITimelinePlot', data);
 
         let svg = Calendar(data, {
-            x: (d) => {
-                const [year, month, day] = d.date.split('-');
-                return new Date(year, month, day);
-            },
+            x: (d) => new Date(d.date + 'Z'),
             y: d => +d.aqi
         });
 
         svgContainer.selectAll("*").remove();
         d3.select(svgRef.current).append(function(){return svg;});
-    })
-        
+    });
     return (
         <svg
             ref = {svgRef}
             style={{
-                height: 350,
-                width: 980,
+                align: 'center',
+                height: 180,
+                width: '100%',
                 marginRight: "0px",
                 marginLeft: "0px",
               }}
