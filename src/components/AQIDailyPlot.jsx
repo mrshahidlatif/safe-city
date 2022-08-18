@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3';
 import Calendar from '../charts/calendar';
 
-export default function AQITimelinePlot(props){
+export default function AQIDailyPlot(props){
     const svgRef = useRef(null);
 
     const margin = {top: 50, right: 20, left: 50, bottom:30};

@@ -6,9 +6,10 @@ import Col from 'react-bootstrap/Col';
 
 import TopBar from "./components/TopBar"
 import AQIDistributionPlot from "./components/AQIDistributionPlot";
-import AQITimelinePlot from "./components/AQITimelinePlot";
+import AQIDailyPlot from "./components/AQIDailyPlot";
 import SearchBox from './components/SearchBox';
 import YearlySummary from './components/YearlySummary';
+import AQIComparisonPlot from './components/AQIComparisonPlot';
 
 import yearlyData from './data/annual_data.json';
 
@@ -21,6 +22,7 @@ export default function App() {
   const [selectedCounty, setSelectedCounty] = useState("Baldwin");
   const [countyData, setCountyData] = useState(null)
   const [selectedDailyData, setSelectedDailyData] = useState(null);
+  //TODO: What if data is not available or 2022, e.g., Los Angeles
   const [selectedYear, setSelectedYear] = useState(2022);
 
   const handleSearchItem = (county) => {
@@ -52,13 +54,15 @@ export default function App() {
           <YearlySummary data={countyData} year={selectedYear}/>
         </Row>
         <Row>
-          <AQITimelinePlot data={selectedDailyData} county={selectedCounty}/>
+          <AQIDailyPlot data={selectedDailyData} county={selectedCounty}/>
         </Row>
         <Row>
           <Col>
             <AQIDistributionPlot data={countyData} county={selectedCounty} handleYearSelection={handleYearSelection}/>
           </Col>
-          <Col>Place Holder</Col>
+          <Col>
+            <AQIComparisonPlot data={yearlyData} county={selectedCounty} year={selectedYear} />
+          </Col>
         </Row>
       </Container>
     </>

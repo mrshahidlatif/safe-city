@@ -5,27 +5,40 @@ export default function AQIDistributionPlot(props){
     const svgRef = useRef(null);
     const [selectedYear, setSelectedYear] = useState('2022')
 
-    const margin = {top: 50, right: 20, left: 50, bottom:30};
+    const margin = {top: 50, right: 20, left: 150, bottom:30};
 
     const height = 350 - margin.top - margin.bottom;
     const width = 400 - margin.left - margin.right;
 
     let svgContainer = d3.select(svgRef.current);
 
-    useEffect(() => {
-        props.handleYearSelection(selectedYear);
-    })
-
     useEffect (() => {
-        if(!props.data) return
-        const data = Object.values(props.data);
+        if(!props.data || !props.county) return
+        console.log('AQIComparisonPlot', props);
 
+        const data = [];
+        for (const [key, val] of Object.entries(props.data)){
+            if (val[props.year]) //only if value exists
+                data.push({
+                    county: key, 
+                    medianAQI: +val[props.year]['median_aqi'],
+                    maxAQI: +val[props.year]['max_aqi'],
+                    percentile90AQI: +val[props.year]['percentile_90_aqi'],
+                });
+        }
+        const sortedData = data.sort((a,b) => d3.ascending(a.medianAQI, b.medianAQI));
+        const comparisonData = [...sortedData.splice(0,5), 
+            sortedData.find((c) => c.county == props.county), 
+            ...sortedData.splice(-5)
+            ];
+        
+        console.log('data', comparisonData);
         let xscale = d3.scaleLinear()
-            .domain([0, d3.max(data, d => +d.max_aqi)])
+            .domain([0, d3.max(comparisonData, d => d.maxAQI)])
             .range([0, width]);
         
         let yscale = d3.scaleBand()
-            .domain(data.map(d=>d.year))
+            .domain(comparisonData.map(d=>d.county))
             .range([0, height])
             .padding(0.1);
         
@@ -33,7 +46,7 @@ export default function AQIDistributionPlot(props){
             .domain([50, 100, 150, 200, 300, 500])
             .range(['green', 'yellow', 'orange', 'red', 'purple', 'maroon']);
         
-        const xaxis = d3.axisBottom(xscale).ticks(5);
+        const xaxis = d3.axisBottom(xscale).ticks(5)
        
         //clear canvas before redrawing
         svgContainer.selectAll("*").remove();
@@ -42,42 +55,38 @@ export default function AQIDistributionPlot(props){
             .append('g')
             .attr("transform", `translate(${margin.left},${margin.top})`)
             .selectAll('rect')
-            .data(data)
+            .data(comparisonData)
             .join('rect')
             .attr('fill', 'gray')
-            .attr('x', d => xscale(d.median_aqi))
-            .attr('y', d => yscale(d.year))
-            .attr('width', d => xscale(d.max_aqi) - xscale(d.median_aqi))
-            .attr('height', 5)
+            .attr('x', d => xscale(d.medianAQI))
+            .attr('y', d => yscale(d.county))
+            .attr('width', d => xscale(d.maxAQI) - xscale(d.medianAQI))
+            .attr('height', 5);
 
         svgContainer
             .append('g')
             .attr("transform", `translate(${margin.left},${margin.top})`)
             .selectAll('circle')
-            .data(data)
+            .data(comparisonData)
             .join('circle')
             .attr('fill', 'gray')
-            .attr('cx', d => xscale(d.percentile_90_aqi))
-            .attr('cy', d => yscale(d.year) + 2) //+2 to center the circles
+            .attr('cx', d => xscale(d.percentile90AQI))
+            .attr('cy', d => yscale(d.county) + 2) //+2 to center the circles
             .attr('r', 5);
 
         svgContainer
             .append('g')
             .attr("transform", `translate(${0},${margin.top})`)
             .selectAll('text')
-            .data(data)
+            .data(comparisonData)
             .join('text')
-            .attr('class', 'yearLabel')
+            .attr('class', 'countyLabel')
             .attr('font-size', "14px")
+            .attr('font-weight', d => d.county === props.county ? 'bold': 'normal')
             .attr('color','gray')
             .attr("x", 5)
-            .attr("y", d => yscale(d.year) + 2)
-            .text(d => d.year)
-            .on('click', function (e, d) {
-                //TODO: properly handle highlighting!
-                d3.select(this).attr('color', 'black');
-                setSelectedYear(d.year.toString());
-            });
+            .attr("y", d => yscale(d.county) + 2)
+            .text(d => d.county)
 
         svgContainer
             .append('g')
@@ -91,7 +100,7 @@ export default function AQIDistributionPlot(props){
     return (
         <>
             <div className='chartTitle'>
-                Air Quality Index Over the Years
+                Comparison of Air Quality Index with Other Counties
             </div>
             <svg
                 ref = {svgRef}

@@ -11,12 +11,12 @@ export default function YearlySummary(props){
         
         const dataObj = data[year];
         const summaryData = [
-            {type: "Good", value: dataObj.good_days},
-            {type: "Moderate", value: dataObj.moderate_days},
-            {type: "Unhealthy (Sensitive)", value: dataObj.unhealthy_sensitive_days},
-            {type: "Unhealthy", value: dataObj.unhealthy_days},
-            {type: "V. Unhealthy",  value: dataObj.very_unhealthy_days},
-            {type: "Hazardous", value: dataObj.hazardous_days}
+            {type: "Good", value: dataObj?.good_days},
+            {type: "Moderate", value: dataObj?.moderate_days},
+            {type: "Unhealthy (Sensitive)", value: dataObj?.unhealthy_sensitive_days},
+            {type: "Unhealthy", value: dataObj?.unhealthy_days},
+            {type: "V. Unhealthy",  value: dataObj?.very_unhealthy_days},
+            {type: "Hazardous", value: dataObj?.hazardous_days}
         ];
 
         const margin = {top: 20, right: 20, left: 100, bottom:30};
@@ -64,9 +64,7 @@ export default function YearlySummary(props){
         svgContainer
             .append('g')
             .attr("transform", `translate(${0},${margin.top})`)
-            .selectAll('text')
-            .data(summaryData)
-            .join('text')
+            .append('text')
             .attr('x', 30)
             .attr('y', 25)
             .attr('font-size', "20px")
