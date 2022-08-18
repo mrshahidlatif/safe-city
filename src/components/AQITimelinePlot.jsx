@@ -15,8 +15,6 @@ export default function AQITimelinePlot(props){
     useEffect (() => {
         if(!props.data) return
         const data = Object.values(props.data);
-        console.log('Data - AQITimelinePlot', data);
-
         let svg = Calendar(data, {
             x: (d) => new Date(d.date + 'Z'),
             y: d => +d.aqi

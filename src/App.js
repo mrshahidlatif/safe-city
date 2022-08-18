@@ -8,38 +8,57 @@ import TopBar from "./components/TopBar"
 import AQIDistributionPlot from "./components/AQIDistributionPlot";
 import AQITimelinePlot from "./components/AQITimelinePlot";
 import SearchBox from './components/SearchBox';
+import YearlySummary from './components/YearlySummary';
 
 import yearlyData from './data/annual_data.json';
+
+//TODO: Due to memory constraints daily data is only for 2019-2022
 import dailyData from './data/daily_data.json';
 
 import { useEffect, useState } from 'react';
 
 export default function App() {
-  const [selectedItem, setSelectedItem] = useState("Baldwin");
-  const [selectedData, setSelectedData] = useState(null)
+  const [selectedCounty, setSelectedCounty] = useState("Baldwin");
+  const [countyData, setCountyData] = useState(null)
   const [selectedDailyData, setSelectedDailyData] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(2022);
 
-  const handleSearchItem = (item) => {
-    setSelectedItem(item);
+  const handleSearchItem = (county) => {
+    setSelectedCounty(county);
   }
 
+
   useEffect(() => {
-    if(selectedItem){
-      setSelectedData(yearlyData[selectedItem]);
-      setSelectedDailyData(dailyData[selectedItem]['2010'])
+    if(selectedCounty){
+      setCountyData(yearlyData[selectedCounty]);
+      setSelectedDailyData(dailyData[selectedCounty][selectedYear])
     }
-  }, [selectedItem])
+  }, [selectedCounty, selectedYear]);
+
+  const handleYearSelection = (year) => {
+    if(selectedCounty)
+      setSelectedYear(+year);
+  };
+ 
   return (
     <>
       <TopBar />
       <Container>
         <Row> <br /> </Row>
         <Row>
-          <SearchBox handleSearchItem={handleSearchItem}/>
+          <SearchBox county={selectedCounty} handleSearchItem={handleSearchItem}/>
         </Row>
-        <Row><AQITimelinePlot data={selectedDailyData} county={selectedItem}/></Row>
         <Row>
-          <Col><AQIDistributionPlot data={selectedData} county={selectedItem}/></Col>
+          <YearlySummary data={countyData} year={selectedYear}/>
+        </Row>
+        <Row>
+          <AQITimelinePlot data={selectedDailyData} county={selectedCounty}/>
+        </Row>
+        <Row>
+          <Col>
+            <AQIDistributionPlot data={countyData} county={selectedCounty} handleYearSelection={handleYearSelection}/>
+          </Col>
+          <Col>Place Holder</Col>
         </Row>
       </Container>
     </>

@@ -8,7 +8,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import searchOptions from '../autocomplete_counties';
 
 export default function (props) {
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState([props.county]);
 
     useEffect(() => {
         props.handleSearchItem(selected[0])

@@ -29,7 +29,11 @@ export default function Calendar(data, {
     // Compute a color scale. This assumes a diverging color scheme where the pivot
     // is zero, and we want symmetric difference around zero.
     const max = d3.quantile(Y, 0.9975, Math.abs);
-    const color = d3.scaleSequential([-max, +max], colors).unknown("none");
+
+    const color2 = d3.scaleSequential([-max, +max], colors).unknown("none");
+
+    //Custom-defined Colors
+    const color = d3.scaleThreshold([50, 100, 150, 200, 300, 500], ['green', 'yellow', 'orange', 'red', 'purple', 'maroon']);
   
     // Construct formats.
     formatMonth = d3.utcFormat(formatMonth);
@@ -37,7 +41,7 @@ export default function Calendar(data, {
     // Compute titles.
     if (title === undefined) {
       const formatDate = d3.utcFormat("%B %-d, %Y");
-      const formatValue = color.tickFormat(100, yFormat);
+      const formatValue = color2.tickFormat(100, yFormat);
       title = i => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
     } else if (title !== null) {
       const T = d3.map(data, title);
@@ -96,7 +100,8 @@ export default function Calendar(data, {
         .attr("height", cellSize - 1)
         .attr("x", i => timeWeek.count(d3.utcYear(X[i]), X[i]) * cellSize + 0.5)
         .attr("y", i => countDay(X[i].getUTCDay()) * cellSize + 0.5)
-        .attr("fill", i => color(Y[i]));
+        .attr("fill", i => color(Y[i]))
+        .attr('opacity', 0.6)
   
     if (title) cell.append("title")
         .text(title);

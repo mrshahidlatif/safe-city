@@ -1,3 +1,11 @@
 .header {
   text-align: center;
 }
+
+.chartTitle{
+  text-align: center;
+}
+
+.yearLabel:hover {
+  cursor: pointer;
+}
