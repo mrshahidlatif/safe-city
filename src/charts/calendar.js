@@ -33,7 +33,8 @@ export default function Calendar(data, {
     const color2 = d3.scaleSequential([-max, +max], colors).unknown("none");
 
     //Custom-defined Colors
-    const color = d3.scaleThreshold([50, 100, 150, 200, 300, 500], ['green', 'yellow', 'orange', 'red', 'purple', 'maroon']);
+    // colors = ['#A9D18E', '#FFD966', '#F4B183', '#FF5050', '#7030A0', '#C00000'];
+    const color = d3.scaleThreshold([50, 100, 150, 200, 300, 500], ['#A9D18E', '#FFD966', '#F4B183', '#FF5050', '#7030A0', '#C00000']);
   
     // Construct formats.
     formatMonth = d3.utcFormat(formatMonth);
@@ -101,7 +102,6 @@ export default function Calendar(data, {
         .attr("x", i => timeWeek.count(d3.utcYear(X[i]), X[i]) * cellSize + 0.5)
         .attr("y", i => countDay(X[i].getUTCDay()) * cellSize + 0.5)
         .attr("fill", i => color(Y[i]))
-        .attr('opacity', 0.6)
   
     if (title) cell.append("title")
         .text(title);

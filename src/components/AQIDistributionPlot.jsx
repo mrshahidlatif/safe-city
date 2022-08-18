@@ -14,7 +14,8 @@ export default function AQIDistributionPlot(props){
 
     useEffect(() => {
         props.handleYearSelection(selectedYear);
-    })
+    }, [selectedYear]);
+
 
     useEffect (() => {
         if(!props.data) return
@@ -71,11 +72,10 @@ export default function AQIDistributionPlot(props){
             .attr('font-size', "14px")
             .attr('color','gray')
             .attr("x", 5)
-            .attr("y", d => yscale(d.year) + 2)
+            .attr("y", d => yscale(d.year) + 3)
             .text(d => d.year)
             .on('click', function (e, d) {
-                //TODO: properly handle highlighting!
-                d3.select(this).attr('color', 'black');
+                //TODO: handle highlighting properly
                 setSelectedYear(d.year.toString());
             });
 

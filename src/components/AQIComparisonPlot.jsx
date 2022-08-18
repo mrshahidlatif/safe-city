@@ -21,9 +21,9 @@ export default function AQIDistributionPlot(props){
             if (val[props.year]) //only if value exists
                 data.push({
                     county: key, 
-                    medianAQI: +val[props.year]['median_aqi'],
-                    maxAQI: +val[props.year]['max_aqi'],
-                    percentile90AQI: +val[props.year]['percentile_90_aqi'],
+                    medianAQI: +val[props.year]['median_aqi'] || 0,
+                    maxAQI: +val[props.year]['max_aqi'] || 0,
+                    percentile90AQI: +val[props.year]['percentile_90_aqi'] || 0,
                 });
         }
         const sortedData = data.sort((a,b) => d3.ascending(a.medianAQI, b.medianAQI));
@@ -34,11 +34,11 @@ export default function AQIDistributionPlot(props){
         
         console.log('data', comparisonData);
         let xscale = d3.scaleLinear()
-            .domain([0, d3.max(comparisonData, d => d.maxAQI)])
+            .domain([0, d3.max(comparisonData, d => d?.maxAQI)])
             .range([0, width]);
         
         let yscale = d3.scaleBand()
-            .domain(comparisonData.map(d=>d.county))
+            .domain(comparisonData.map(d=>d?.county))
             .range([0, height])
             .padding(0.1);
         
@@ -60,7 +60,7 @@ export default function AQIDistributionPlot(props){
             .attr('fill', 'gray')
             .attr('x', d => xscale(d.medianAQI))
             .attr('y', d => yscale(d.county))
-            .attr('width', d => xscale(d.maxAQI) - xscale(d.medianAQI))
+            .attr('width', d => xscale(d?.maxAQI) - xscale(d.medianAQI))
             .attr('height', 5);
 
         svgContainer

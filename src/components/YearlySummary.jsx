@@ -21,7 +21,7 @@ export default function YearlySummary(props){
 
         const margin = {top: 20, right: 20, left: 100, bottom:30};
         const [boxSize, interval] = [80, 20]
-        const colors = ['green', 'yellow', 'orange', 'red', 'purple', 'maroon'];
+        const colors = ['#A9D18E', '#FFD966', '#F4B183', '#FF5050', '#7030A0', '#C00000'];
 
         svgContainer.selectAll("*").remove();
 
@@ -46,7 +46,7 @@ export default function YearlySummary(props){
             .attr('x', (d,i) => i*boxSize + interval + 5)
             .attr('y', 27)
             .attr('font-size', "28px")
-            .attr('fill','lightgray')
+            .attr('fill','white')
             .text(d => d.value)
         
         svgContainer
