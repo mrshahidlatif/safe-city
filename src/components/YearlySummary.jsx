@@ -79,7 +79,7 @@ export default function YearlySummary(props){
             style={{
                 align: 'center',
                 height: 75,
-                width: '100%',
+                width: '60%',
                 marginRight: "0px",
                 marginLeft: "0px",
               }}

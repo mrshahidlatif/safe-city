@@ -9,3 +9,8 @@
 .yearLabel:hover {
   cursor: pointer;
 }
+
+.row, .col {
+  align-items: center;
+  justify-content: center;
+}

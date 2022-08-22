@@ -29,7 +29,7 @@ export default function AQIDailyPlot(props){
             style={{
                 align: 'center',
                 height: 180,
-                width: '100%',
+                width: '85%',
                 marginRight: "0px",
                 marginLeft: "0px",
               }}
