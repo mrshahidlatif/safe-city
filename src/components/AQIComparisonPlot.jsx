@@ -100,7 +100,7 @@ export default function AQIDistributionPlot(props){
     return (
         <>
             <div className='chartTitle'>
-                Comparison of Air Quality Index with Other Counties
+                Comparing Air Quality of <b>{props.county}</b> with Top / bottom 5 Counties, <b>{props.year}</b>
             </div>
             <svg
                 ref = {svgRef}

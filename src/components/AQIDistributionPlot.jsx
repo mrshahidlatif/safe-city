@@ -68,12 +68,14 @@ export default function AQIDistributionPlot(props){
             .selectAll('text')
             .data(data)
             .join('text')
+            .attr('class', d => 'y' + d.year)
             .attr('class', 'yearLabel')
             .attr('font-size', "14px")
             .attr('color','gray')
             .attr("x", 5)
             .attr("y", d => yscale(d.year) + 3)
             .text(d => d.year)
+            .attr('font-weight', d => d.year == props.year ? 'bold':'')
             .on('click', function (e, d) {
                 //TODO: handle highlighting properly
                 setSelectedYear(d.year.toString());
@@ -91,7 +93,7 @@ export default function AQIDistributionPlot(props){
     return (
         <>
             <div className='chartTitle'>
-                Air Quality Index Over the Years
+                Air Quality of <b>{props.county}</b> Over the Years
             </div>
             <svg
                 ref = {svgRef}

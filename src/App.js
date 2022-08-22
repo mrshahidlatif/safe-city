@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import * as d3 from 'd3';
+
 import TopBar from "./components/TopBar"
 import AQIDistributionPlot from "./components/AQIDistributionPlot";
 import AQIDailyPlot from "./components/AQIDailyPlot";
@@ -35,6 +37,10 @@ export default function App() {
       setCountyData(yearlyData[selectedCounty]);
       setSelectedDailyData(dailyData[selectedCounty][selectedYear])
     }
+    if(selectedYear){
+      console.log('selected', selectedYear);
+      d3.select('.y' + selectedYear).attr('color', 'red');
+    }
   }, [selectedCounty, selectedYear]);
 
   const handleYearSelection = (year) => {
@@ -58,7 +64,7 @@ export default function App() {
         </Row>
         <Row>
           <Col>
-            <AQIDistributionPlot data={countyData} county={selectedCounty} handleYearSelection={handleYearSelection}/>
+            <AQIDistributionPlot data={countyData} county={selectedCounty} handleYearSelection={handleYearSelection} year={selectedYear}/>
           </Col>
           <Col>
             <AQIComparisonPlot data={yearlyData} county={selectedCounty} year={selectedYear} />
