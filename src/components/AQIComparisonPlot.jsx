@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 
 export default function AQIDistributionPlot(props){
     const svgRef = useRef(null);
-    const [selectedYear, setSelectedYear] = useState('2022')
 
     const margin = {top: 50, right: 20, left: 150, bottom:30};
 
@@ -11,28 +10,39 @@ export default function AQIDistributionPlot(props){
     const width = 400 - margin.left - margin.right;
 
     let svgContainer = d3.select(svgRef.current);
+    const {year, county} = props;
+    const [foundCounty, setFoundCounty] = useState(true);
 
     useEffect (() => {
         if(!props.data || !props.county) return
-        console.log('AQIComparisonPlot', props);
-
+        const {year, county} = props;
         const data = [];
         for (const [key, val] of Object.entries(props.data)){
-            if (val[props.year]) //only if value exists
-                data.push({
-                    county: key, 
-                    medianAQI: +val[props.year]['median_aqi'] || 0,
-                    maxAQI: +val[props.year]['max_aqi'] || 0,
-                    percentile90AQI: +val[props.year]['percentile_90_aqi'] || 0,
-                });
+            if (!val[year]) {
+                continue
+            } 
+            data.push({
+                county: key,
+                medianAQI: +val[year]['median_aqi'] || 0,
+                maxAQI: +val[year]['max_aqi'] || 0,
+                percentile90AQI: +val[year]['percentile_90_aqi'] || 0,
+            });
         }
         const sortedData = data.sort((a,b) => d3.ascending(a.medianAQI, b.medianAQI));
-        const comparisonData = [...sortedData.splice(0,5), 
-            sortedData.find((c) => c.county == props.county), 
-            ...sortedData.splice(-5)
+        const activeCounty = sortedData.find((c) => c.county == county);
+        setFoundCounty(!(activeCounty == undefined));
+
+        //comparison not possible due to missing AQI data of the selected county
+        if(!activeCounty) {
+            svgContainer.selectAll("*").remove();
+            return
+        }
+
+        const comparisonData = [...sortedData.slice(0,5), 
+            activeCounty, 
+            ...sortedData.slice(-5)
             ];
-        
-        console.log('data', comparisonData);
+
         let xscale = d3.scaleLinear()
             .domain([0, d3.max(comparisonData, d => d?.maxAQI)])
             .range([0, width]);
@@ -41,10 +51,6 @@ export default function AQIDistributionPlot(props){
             .domain(comparisonData.map(d=>d?.county))
             .range([0, height])
             .padding(0.1);
-        
-        const colorPicker = d3.scaleThreshold()
-            .domain([50, 100, 150, 200, 300, 500])
-            .range(['green', 'yellow', 'orange', 'red', 'purple', 'maroon']);
         
         const xaxis = d3.axisBottom(xscale).ticks(5)
        
@@ -60,7 +66,7 @@ export default function AQIDistributionPlot(props){
             .attr('fill', 'gray')
             .attr('x', d => xscale(d.medianAQI))
             .attr('y', d => yscale(d.county))
-            .attr('width', d => xscale(d?.maxAQI) - xscale(d.medianAQI))
+            .attr('width', d => xscale(d.maxAQI) - xscale(d.medianAQI))
             .attr('height', 5);
 
         svgContainer
@@ -82,7 +88,7 @@ export default function AQIDistributionPlot(props){
             .join('text')
             .attr('class', 'countyLabel')
             .attr('font-size', "14px")
-            .attr('font-weight', d => d.county === props.county ? 'bold': 'normal')
+            .attr('font-weight', d => d.county === county ? 'bold': 'normal')
             .attr('color','gray')
             .attr("x", 5)
             .attr("y", d => yscale(d.county) + 2)
@@ -100,8 +106,9 @@ export default function AQIDistributionPlot(props){
     return (
         <>
             <div className='chartTitle'>
-                Comparing Air Quality of <b>{props.county}</b> with Top / bottom 5 Counties, <b>{props.year}</b>
+                Comparing Air Quality of <b>{county}</b> with Top / bottom 5 Counties, <b>{year}</b>
             </div>
+            {!foundCounty && <div className='error'> Not found </div>}
             <svg
                 ref = {svgRef}
                 style={{

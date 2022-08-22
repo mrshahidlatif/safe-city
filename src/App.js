@@ -25,7 +25,7 @@ export default function App() {
   const [countyData, setCountyData] = useState(null)
   const [selectedDailyData, setSelectedDailyData] = useState(null);
   //TODO: What if data is not available or 2022, e.g., Los Angeles
-  const [selectedYear, setSelectedYear] = useState(2022);
+  const [selectedYear, setSelectedYear] = useState(2021);
 
   const handleSearchItem = (county) => {
     setSelectedCounty(county);
@@ -33,13 +33,10 @@ export default function App() {
 
 
   useEffect(() => {
-    if(selectedCounty){
+    if(selectedCounty && dailyData[selectedCounty]){
       setCountyData(yearlyData[selectedCounty]);
       setSelectedDailyData(dailyData[selectedCounty][selectedYear])
-    }
-    if(selectedYear){
-      console.log('selected', selectedYear);
-      d3.select('.y' + selectedYear).attr('color', 'red');
+
     }
   }, [selectedCounty, selectedYear]);
 
