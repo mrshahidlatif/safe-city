@@ -11,12 +11,12 @@ export default function YearlySummary(props){
         
         const dataObj = data[year];
         const summaryData = [
-            {type: "Good", value: dataObj?.good_days},
-            {type: "Moderate", value: dataObj?.moderate_days},
-            {type: "Unhealthy (Sensitive)", value: dataObj?.unhealthy_sensitive_days},
-            {type: "Unhealthy", value: dataObj?.unhealthy_days},
-            {type: "V. Unhealthy",  value: dataObj?.very_unhealthy_days},
-            {type: "Hazardous", value: dataObj?.hazardous_days}
+            {type: "Good", range:"0-50", value: dataObj?.good_days},
+            {type: "Moderate", range:"51-100", value: dataObj?.moderate_days},
+            {type: "Unhealthy", range:"101-150", value: dataObj?.unhealthy_sensitive_days},
+            {type: "Unhealthy", range:"151-200", value: dataObj?.unhealthy_days},
+            {type: "V. Unhealthy", range:"201-300", value: dataObj?.very_unhealthy_days},
+            {type: "Hazardous", range:"301+", value: dataObj?.hazardous_days}
         ];
 
         const margin = {top: 20, right: 20, left: 100, bottom:30};
@@ -57,9 +57,21 @@ export default function YearlySummary(props){
             .join('text')
             .attr('x', (d,i) => i*boxSize + interval)
             .attr('y', 50)
-            .attr('font-size', "12px")
+            .attr('font-size', "14px")
             .attr('fill','gray')
             .text(d => d.type)
+
+        svgContainer
+            .append('g')
+            .attr("transform", `translate(${margin.left},${margin.top})`)
+            .selectAll('text')
+            .data(summaryData)
+            .join('text')
+            .attr('x', (d,i) => i*boxSize + interval)
+            .attr('y', 65)
+            .attr('font-size', "12px")
+            .attr('fill','gray')
+            .text(d => d.range)
             
         svgContainer
             .append('g')
@@ -78,10 +90,10 @@ export default function YearlySummary(props){
             ref = {svgRef}
             style={{
                 align: 'center',
-                height: 75,
+                height: 90,
                 width: '60%',
-                marginRight: "0px",
-                marginLeft: "0px",
+                display:'block',
+                margin: 'auto'
               }}
         >
         </svg>

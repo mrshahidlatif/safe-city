@@ -30,8 +30,8 @@ export default function AQIDailyPlot(props){
                 align: 'center',
                 height: 180,
                 width: '85%',
-                marginRight: "0px",
-                marginLeft: "0px",
+                display:'block',
+                margin: 'auto'
               }}
         >
         </svg>

@@ -5,7 +5,7 @@ export default function AQIDistributionPlot(props){
     const svgRef = useRef(null);
     const [selectedYear, setSelectedYear] = useState('2022')
 
-    const margin = {top: 50, right: 20, left: 50, bottom:30};
+    const margin = {top: 60, right: 20, left: 50, bottom:30};
 
     const height = 350 - margin.top - margin.bottom;
     const width = 400 - margin.left - margin.right;
@@ -88,6 +88,50 @@ export default function AQIDistributionPlot(props){
             .attr('font-size', "14px")
             .attr('color','gray');
 
+        //Legend
+        const legend = svgContainer
+            .append('g')
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+        
+        legend
+            .append('rect')
+            .attr('fill', 'gray')
+            .attr('x', width/2 - 75)
+            .attr('y', -30)
+            .attr('width', 150)
+            .attr('height', 5)
+
+        legend
+            .append('circle')
+            .attr('fill', 'gray')
+            .attr('cx', width/2)
+            .attr('cy', -28) //+2 to center the circles
+            .attr('r', 5);
+        
+        legend
+            .append('text')
+            .attr('fill', 'gray')
+            .attr('font-size', "12px")
+            .attr('x', width/2 - 120)
+            .attr('y', -25) //+2 to center the circles
+            .text('median');
+
+        legend
+            .append('text')
+            .attr('fill', 'gray')
+            .attr('font-size', "12px")
+            .attr('x', width/2 + 80)
+            .attr('y', -25) //+2 to center the circles
+            .text('max');
+        
+        legend
+            .append('text')
+            .attr('fill', 'gray')
+            .attr('font-size', "12px")
+            .attr('x', width/2 - 5)
+            .attr('y', -38) //+2 to center the circles
+            .text('329d have lower value than this');
+
     });
         
     return (
@@ -98,10 +142,10 @@ export default function AQIDistributionPlot(props){
             <svg
                 ref = {svgRef}
                 style={{
-                    height: 350,
+                    height: 380,
                     width: 400,
-                    marginRight: "0px",
-                    marginLeft: "0px",
+                    display:'block',
+                    margin: 'auto',
                 }}
             >
             </svg>
