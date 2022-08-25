@@ -52,10 +52,10 @@ export default function App() {
       <TopBar />
       <Container>
         <Row> <br /> </Row>
+        <Row><MapVis data={yearlyData} usTopoJSON={usTopoJSON} year={selectedYear}/></Row>
         <Row>
           <SearchBox county={selectedCounty} handleSearchItem={handleSearchItem}/>
         </Row>
-        <Row><MapVis data={yearlyData} usTopoJSON={usTopoJSON} year={selectedYear}/></Row>
         <Row>
           <YearlySummary data={countyData} year={selectedYear}/>
         </Row>

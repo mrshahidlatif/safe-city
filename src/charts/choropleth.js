@@ -65,7 +65,7 @@ export default function Choropleth(data, {
     }
   
     // Construct a path generator.
-    const path = d3.geoPath(projection);
+    const path = d3.geoPath();
   
     const svg = d3.create("svg")
         .attr("width", width)
