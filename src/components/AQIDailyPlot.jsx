@@ -23,6 +23,7 @@ export default function AQIDailyPlot(props){
         svgContainer.selectAll("*").remove();
         d3.select(svgRef.current).append(function(){return svg;});
     });
+    
     return (
         <svg
             ref = {svgRef}

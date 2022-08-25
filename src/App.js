@@ -12,8 +12,10 @@ import AQIDailyPlot from "./components/AQIDailyPlot";
 import SearchBox from './components/SearchBox';
 import YearlySummary from './components/YearlySummary';
 import AQIComparisonPlot from './components/AQIComparisonPlot';
+import MapVis from './components/MapVis';
 
 import yearlyData from './data/annual_data.json';
+import usTopoJSON from './data/counties-albers-10m.json';
 
 //TODO: Due to memory constraints daily data is only for 2019-2022
 import dailyData from './data/daily_data.json';
@@ -53,6 +55,7 @@ export default function App() {
         <Row>
           <SearchBox county={selectedCounty} handleSearchItem={handleSearchItem}/>
         </Row>
+        <Row><MapVis data={yearlyData} usTopoJSON={usTopoJSON} year={selectedYear}/></Row>
         <Row>
           <YearlySummary data={countyData} year={selectedYear}/>
         </Row>
