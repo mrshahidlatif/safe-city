@@ -45,8 +45,7 @@ export default function MapVis(props){
             value: d => d.aqi,
             scale: d3.scaleQuantize,
             domain: [0, d3.max(mapData, d => d.aqi)],
-            // range: d3.schemeBlues[9],
-            title: (f, d) => `${f.county}, ${statemap.get(f.id.slice(0, 2)).properties.name}\n${d?.aqi}`,
+            title: (f, d) => `${d?.county}, ${statemap.get(f.id.slice(0, 2)).properties.name}\n AQI: ${d?.aqi}`,
             features: counties,
             borders: statemesh,
             width: w,
@@ -65,7 +64,10 @@ export default function MapVis(props){
     return (
         <>
             <div className='title'>
-                Air Quality Across Various Counties in the United States
+                Air Quality Across Counties in the United States | {props.year}
+            </div>
+            <div className='subtitle'>
+                Gray color indicates missing observations!
             </div>
             <div>
                 <ButtonGroup>
