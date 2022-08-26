@@ -23,9 +23,6 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - name: Deploy
-      uses: mrshahidlatif/safe-city@v1
-      with:
-        target_branch: gh_pages
-        build_dir: build
+    - run: npm run deploy
       env:
         GITHUB_TOKEN: ${{secrets.ACTION_SECRET}}
