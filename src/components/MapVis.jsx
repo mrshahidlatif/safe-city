@@ -53,18 +53,29 @@ export default function MapVis(props){
         });
 
         svgContainer.selectAll("*").remove();
+
         const legend = Legend(svg.scales.color, {title: 'Air Quality Index'})
+
         d3.select(svgRef.current).append(function(){return svg;});
         d3.select(svgRef.current)
             .append('g')
             .attr("transform", `translate(${w-175},${h-50})`)
             .append(function(){return legend;});
+
+        d3.select(svgRef.current)
+            .append('g')
+            .attr("transform", `translate(${w-25},${50})`)
+            .append('text')
+            .attr('font-size', 60)
+            .attr('font-weight', 'bold')
+            .attr('fill', '#e0dede')
+            .text(props.year)
     });
 
     return (
         <>
             <div className='title'>
-                Air Quality Across Counties in the United States | {props.year}
+                Air Quality Across Counties in the United States
             </div>
             <div className='subtitle'>
                 Gray color indicates missing observations!
