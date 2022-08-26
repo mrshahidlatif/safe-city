@@ -86,16 +86,20 @@ export default function YearlySummary(props){
     });
 
     return (
-        <svg
-            ref = {svgRef}
-            style={{
-                align: 'center',
-                height: 90,
-                width: '60%',
-                display:'block',
-                margin: 'auto'
-              }}
-        >
-        </svg>
+        <>
+            <div>
+            </div>
+            <svg
+                ref = {svgRef}
+                style={{
+                    align: 'center',
+                    height: 90,
+                    width: '60%',
+                    display:'block',
+                    margin: 'auto'
+                }}
+            >
+            </svg>
+        </>
     );
 }

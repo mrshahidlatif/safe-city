@@ -10,24 +10,25 @@ import searchOptions from '../autocomplete_counties';
 export default function (props) {
     const [selected, setSelected] = useState([props.county]);
 
+    // TODO: clear name of selected county after searching!
     useEffect(() => {
         props.handleSearchItem(selected[0])
-    }, [selected])
+    }, [selected]);
 
     return (
         <>
-        <InputGroup className="mb-3">
-            <Typeahead
-                id="basic-example"
-                onChange={setSelected}
-                options={searchOptions}
-                placeholder="Select a county"
-                selected={selected}
-            />
-            <Button variant="outline-secondary" id="button-addon2">
-            Search
-            </Button>
-        </InputGroup>
+        <div>
+            <InputGroup className="mb-3">
+                <InputGroup.Text id="btnGroupAddon">Explore your county</InputGroup.Text>
+                <Typeahead
+                    id="basic-example"
+                    onChange={setSelected}
+                    options={searchOptions}
+                    placeholder="Select a county"
+                    selected={selected}
+                />
+            </InputGroup>
+        </div>
         </>
     );
 }

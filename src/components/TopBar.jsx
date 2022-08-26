@@ -5,9 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 export default function () {
   return (
     <>
-    <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand>
             <img
               alt=""
               src={process.env.PUBLIC_URL + '/air-quality.png'} 
