@@ -4,8 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import * as d3 from 'd3';
-
 import TopBar from "./components/TopBar"
 import AQIDistributionPlot from "./components/AQIDistributionPlot";
 import AQIDailyPlot from "./components/AQIDailyPlot";
