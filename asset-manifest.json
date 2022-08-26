@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/safe-city/static/css/main.f534f6ba.css",
-    "main.js": "/safe-city/static/js/main.2fd8e6cc.js",
+    "main.css": "/safe-city/static/css/main.b720c176.css",
+    "main.js": "/safe-city/static/js/main.8679e551.js",
     "index.html": "/safe-city/index.html",
-    "main.f534f6ba.css.map": "/safe-city/static/css/main.f534f6ba.css.map",
-    "main.2fd8e6cc.js.map": "/safe-city/static/js/main.2fd8e6cc.js.map"
+    "main.b720c176.css.map": "/safe-city/static/css/main.b720c176.css.map",
+    "main.8679e551.js.map": "/safe-city/static/js/main.8679e551.js.map"
   },
   "entrypoints": [
-    "static/css/main.f534f6ba.css",
-    "static/js/main.2fd8e6cc.js"
+    "static/css/main.b720c176.css",
+    "static/js/main.8679e551.js"
   ]
 }
