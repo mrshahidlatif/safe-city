@@ -29,8 +29,8 @@ export default function AQIDistributionPlot(props){
             });
         }
         const sortedData = data.sort((a,b) => d3.ascending(a.medianAQI, b.medianAQI));
-        const activeCounty = sortedData.find((c) => c.county == county);
-        setFoundCounty(!(activeCounty == undefined));
+        const activeCounty = sortedData.find((c) => c.county === county);
+        setFoundCounty(!(activeCounty === undefined));
 
         //comparison not possible due to missing AQI data of the selected county
         if(!activeCounty) {

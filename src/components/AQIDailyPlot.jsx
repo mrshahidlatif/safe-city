@@ -5,11 +5,6 @@ import Calendar from '../charts/calendar';
 export default function AQIDailyPlot(props){
     const svgRef = useRef(null);
 
-    const margin = {top: 50, right: 20, left: 50, bottom:30};
-
-    const height = 350 - margin.top - margin.bottom;
-    const width = 400 - margin.left - margin.right;
-
     let svgContainer = d3.select(svgRef.current);
 
     useEffect (() => {

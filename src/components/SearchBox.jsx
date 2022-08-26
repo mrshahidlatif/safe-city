@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Button from 'react-bootstrap/Button';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -7,7 +6,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import searchOptions from '../autocomplete_counties';
 
-export default function (props) {
+export default function SearchBox(props) {
     const [selected, setSelected] = useState([props.county]);
 
     // TODO: clear name of selected county after searching!

@@ -20,7 +20,7 @@ export default function MapVis(props){
 
     useEffect (() => {
         if(!props.data) return
-        const {data, usTopoJSON, year} = props;
+        const {usTopoJSON, year} = props;
         const US = usTopoJSON.objects.counties.geometries;
         const counties = topojson.feature(usTopoJSON, usTopoJSON.objects.counties);
         const states = topojson.feature(usTopoJSON, usTopoJSON.objects.states);

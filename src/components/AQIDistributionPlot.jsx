@@ -26,13 +26,9 @@ export default function AQIDistributionPlot(props){
             .range([0, width]);
         
         let yscale = d3.scaleBand()
-            .domain(data.map(d=>d.year))
+            .domain(data.map(d => d.year))
             .range([height, 0])
             .padding(0.1);
-        
-        const colorPicker = d3.scaleThreshold()
-            .domain([50, 100, 150, 200, 300, 500])
-            .range(['green', 'yellow', 'orange', 'red', 'purple', 'maroon']);
         
         const xaxis = d3.axisBottom(xscale).ticks(5);
        
