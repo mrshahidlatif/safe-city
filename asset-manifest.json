@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/safe-city/static/css/main.f534f6ba.css",
+    "main.js": "/safe-city/static/js/main.2fd8e6cc.js",
+    "index.html": "/safe-city/index.html",
+    "main.f534f6ba.css.map": "/safe-city/static/css/main.f534f6ba.css.map",
+    "main.2fd8e6cc.js.map": "/safe-city/static/js/main.2fd8e6cc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f534f6ba.css",
+    "static/js/main.2fd8e6cc.js"
+  ]
+}
