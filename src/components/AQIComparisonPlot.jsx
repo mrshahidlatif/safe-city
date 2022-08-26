@@ -149,7 +149,7 @@ export default function AQIDistributionPlot(props){
     return (
         <>
             <div className='chartTitle'>
-                Air Quality of <b>{county}</b> with Top / bottom 5 Counties, <b>{year}</b>
+                <b>{county}</b> with Top / bottom 5 Counties, <b>{year}</b>
             </div>
             {!foundCounty && <div className='error'> Not found </div>}
             <svg

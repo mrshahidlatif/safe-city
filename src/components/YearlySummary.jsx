@@ -19,7 +19,7 @@ export default function YearlySummary(props){
             {type: "Hazardous", range:"301+", value: dataObj?.hazardous_days}
         ];
 
-        const margin = {top: 20, right: 20, left: 100, bottom:30};
+        const margin = {top: 20, right: 20, left: 150, bottom:30};
         const [boxSize, interval] = [80, 20]
         const colors = ['#A9D18E', '#FFD966', '#F4B183', '#FF5050', '#7030A0', '#C00000'];
 
@@ -77,24 +77,24 @@ export default function YearlySummary(props){
             .append('g')
             .attr("transform", `translate(${0},${margin.top})`)
             .append('text')
-            .attr('x', 30)
+            .attr('x', 0)
             .attr('y', 25)
-            .attr('font-size', "20px")
+            .attr('font-size', "22px")
             .attr('fill','gray')
-            .text("# Days")
+            .text("Among 365 days")
 
     });
 
     return (
         <>
-            <div>
+            <div className='title'>
+                Daily Variations in Air Quality of <b>{props.county}</b>, <b>{props.year}</b>
             </div>
             <svg
                 ref = {svgRef}
                 style={{
-                    align: 'center',
                     height: 90,
-                    width: '60%',
+                    width: '65%',
                     display:'block',
                     margin: 'auto'
                 }}

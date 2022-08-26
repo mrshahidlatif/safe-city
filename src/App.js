@@ -17,13 +17,13 @@ import MapVis from './components/MapVis';
 import yearlyData from './data/annual_data.json';
 import usTopoJSON from './data/counties-albers-10m.json';
 
-//TODO: Due to memory constraints daily data is only for 2019-2022
+//TODO: Due to memory constraints daily data is only for 2019-2022. Need fixing!
 import dailyData from './data/daily_data.json';
 
 import { useEffect, useState } from 'react';
 
 export default function App() {
-  const [selectedCounty, setSelectedCounty] = useState("Baldwin");
+  const [selectedCounty, setSelectedCounty] = useState("San Juan");
   const [countyData, setCountyData] = useState(null)
   const [selectedDailyData, setSelectedDailyData] = useState(null);
   //TODO: What if data is not available or 2022, e.g., Los Angeles
@@ -57,7 +57,7 @@ export default function App() {
           <SearchBox county={selectedCounty} handleSearchItem={handleSearchItem}/>
         </Row>
         <Row>
-          <YearlySummary data={countyData} year={selectedYear}/>
+          <YearlySummary data={countyData} year={selectedYear} county={selectedCounty}/>
         </Row>
         <Row>
           <AQIDailyPlot data={selectedDailyData} county={selectedCounty}/>
