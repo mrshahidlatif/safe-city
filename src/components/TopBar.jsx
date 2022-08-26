@@ -10,7 +10,7 @@ export default function () {
           <Navbar.Brand href="#home">
             <img
               alt=""
-              src="/logo.svg"
+              src={process.env.PUBLIC_URL + '/air-quality.png'} 
               width="30"
               height="30"
               className="d-inline-block align-top"

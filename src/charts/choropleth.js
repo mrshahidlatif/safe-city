@@ -84,9 +84,24 @@ export default function Choropleth(data, {
       .join("path")
         .attr("fill", (d, i) => color(V[Im.get(If[i])]))
         .attr("d", path)
+        .on('mouseover', function (d, i) {
+          d3.selectAll('path')
+            .transition()
+            .duration(200)
+            .attr('opacity', 0.5)
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr('opacity', 1)
+        })
+        .on('mouseout', function(){
+          d3.selectAll('path')
+            .transition()
+            .duration(200)
+            .attr('opacity', 1)
+        })
       .append("title")
         .text((d, i) => title(d, Im.get(If[i])));
-  
     if (borders != null) svg.append("path")
         .attr("pointer-events", "none")
         .attr("fill", "none")
