@@ -22,5 +22,18 @@
   font-size: x-large;
 }
 .subtitle{
-  font-size: small;
+  font-size: large;
+}
+
+.footnote{
+  font-size: smaller;
+}
+
+.para{
+  /* font-size: large; */
+  text-align: justify;
+}
+
+span{
+  font-weight: bold;
 }

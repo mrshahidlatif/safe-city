@@ -14,7 +14,7 @@ export default function MapVis(props){
 
     const aqiMeasures = [
         { label: 'Median', measure: 'median_aqi', value: '1' },
-        { label: '90 %tile', measure: 'percentile_90_aqi', value: '2' },
+        { label: '90th Percentile', measure: 'percentile_90_aqi', value: '2' },
         { label: 'Max', measure: 'max_aqi', value: '3' },
       ];
 
@@ -59,14 +59,14 @@ export default function MapVis(props){
         d3.select(svgRef.current).append(function(){return svg;});
         d3.select(svgRef.current)
             .append('g')
-            .attr("transform", `translate(${w-175},${h-50})`)
+            .attr("transform", `translate(${0},${2*h/3-75})`)
             .append(function(){return legend;});
 
         d3.select(svgRef.current)
             .append('g')
-            .attr("transform", `translate(${w-25},${50})`)
+            .attr("transform", `translate(${w/2-15},${35})`)
             .append('text')
-            .attr('font-size', 60)
+            .attr('font-size', 28)
             .attr('font-weight', 'bold')
             .attr('fill', '#e0dede')
             .text(props.year)
@@ -76,9 +76,6 @@ export default function MapVis(props){
         <>
             <div className='title'>
                 Air Quality Across Counties in the United States
-            </div>
-            <div className='subtitle'>
-                Gray color indicates missing observations!
             </div>
             <div>
                 <ButtonGroup>
@@ -103,13 +100,19 @@ export default function MapVis(props){
                 ref = {svgRef}
                 style={{
                     align: 'center',
-                    height: 610,
+                    height: 400,
                     width: '100%',
                     display:'block',
                     margin: 'auto'
                 }}
             >
             </svg>
+            <div className='footnote'>
+                *Gray color indicates missing observations.
+            </div>
+            <div className='para'>
+                The Western and Mid-western states have comparatively lower air quality. The state of <span>California</span> has the worst air quality with many counties having an AQI of above 300. <span>Platte</span> in <span>Wyoming</span> beats even <span>California</span> with an AQI of 664 - the nation-wide highest. <span>Trinity, California</span> has the second worst air quality (AQI 662).
+            </div>
         </>
     );
 }

@@ -8,14 +8,14 @@ export default function TopBar() {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand>
-            <img
+            {/* <img
               alt=""
               src={process.env.PUBLIC_URL + '/air-quality.png'} 
               width="30"
               height="30"
               className="d-inline-block align-top"
-            />{' '}
-            Safe City
+            />{' '} */}
+            S a f e  C i t y
           </Navbar.Brand>
         </Container>
       </Navbar>

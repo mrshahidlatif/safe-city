@@ -55,7 +55,7 @@ export default function Choropleth(data, {
     // the width, and then compute the corresponding height.
     if (height === undefined) {
       if (outline === undefined) {
-        height = 400;
+        height = 200;
       } else {
         const [[x0, y0], [x1, y1]] = d3.geoPath(projection.fitWidth(width, outline)).bounds(outline);
         const dy = Math.ceil(y1 - y0), l = Math.min(Math.ceil(x1 - x0), dy);
@@ -63,14 +63,13 @@ export default function Choropleth(data, {
         height = dy;
       }
     }
-  
     // Construct a path generator.
     const path = d3.geoPath();
   
     const svg = d3.create("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [0, 0, width, height])
+        .attr("viewBox", [0, 0, width*2, height*2])
         .attr("style", "width: 100%; height: auto; height: intrinsic;");
   
     if (outline != null) svg.append("path")

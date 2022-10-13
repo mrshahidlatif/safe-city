@@ -11,6 +11,7 @@ import SearchBox from './components/SearchBox';
 import YearlySummary from './components/YearlySummary';
 import AQIComparisonPlot from './components/AQIComparisonPlot';
 import MapVis from './components/MapVis';
+import AQISlopeGraph from './components/AQISlopeGraph';
 
 import yearlyData from './data/annual_data.json';
 import usTopoJSON from './data/counties-albers-10m.json';
@@ -50,7 +51,10 @@ export default function App() {
       <TopBar />
       <Container>
         <Row> <br /> </Row>
-        <Row><MapVis data={yearlyData} usTopoJSON={usTopoJSON} year={selectedYear}/></Row>
+        <Row>
+          <Col><MapVis data={yearlyData} usTopoJSON={usTopoJSON} year={selectedYear}/></Col>
+          <Col><AQISlopeGraph data={yearlyData}/></Col>
+        </Row>
         <Row>
           <SearchBox county={selectedCounty} handleSearchItem={handleSearchItem}/>
         </Row>
